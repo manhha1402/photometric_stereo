@@ -1,0 +1,11 @@
+gray_data_path: "../photometrics_images/SphereGray/"
+rgb_data_path: "../photometrics_images/SphereColor/"
+yale_face_path: "../photometrics_images/yaleB02/"
+suffix: ".png"
+#This need to change while testing with different data => if you change SphereColor then change model name to Sphere 
+model_name: "Sphere"
+yale_face_name: "yaleB02"
+# number of images are used to test algorithm, if it is greater than total number of images, it is assigned to the total number of images
+num_of_images: 121
+# Light sources in Z direction 
+z: 0.5
