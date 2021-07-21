@@ -53,11 +53,19 @@ int main(int argc, char** argv)
     normal_map_vec[1].convertTo(normal_map_vec[1], CV_8UC3, 255, 0);
     normal_map_vec[2].convertTo(normal_map_vec[2], CV_8UC3, 255, 0);
 
+#if (CV_VERSION_MAJOR >= 4)
+    cv::cvtColor(normal_map, normal_map, cv::COLOR_BGR2RGB);
+    cv::cvtColor(normal_map_vec[0], normal_map_vec[0], cv::COLOR_BGR2RGB); //OpenCV store BGR
+    cv::cvtColor(normal_map_vec[1], normal_map_vec[1], cv::COLOR_BGR2RGB); //OpenCV store BGR
+    cv::cvtColor(normal_map_vec[2], normal_map_vec[2], cv::COLOR_BGR2RGB); //OpenCV store BGR
 
-    cv::cvtColor(normal_map, normal_map, CV_BGR2RGB); //OpenCV store BGR
+#else
+    cv::cvtColor(normal_map, normal_map, CV_BGR2RGB);
     cv::cvtColor(normal_map_vec[0], normal_map_vec[0], CV_BGR2RGB); //OpenCV store BGR
     cv::cvtColor(normal_map_vec[1], normal_map_vec[1], CV_BGR2RGB); //OpenCV store BGR
     cv::cvtColor(normal_map_vec[2], normal_map_vec[2], CV_BGR2RGB); //OpenCV store BGR
+
+#endif
 
 
     cv::imwrite(photo->setting_.model_name_+"_normal_mapRGB"+ss.str()+".png",normal_map);

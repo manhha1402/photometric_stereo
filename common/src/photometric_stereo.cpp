@@ -79,7 +79,7 @@ bool PhotoStereo::readGrayData()
     for (std::size_t k = 0; k< image_files.size(); k++)
     {
 
-        model_images_.push_back(cv::imread(image_files[k],CV_LOAD_IMAGE_GRAYSCALE));
+        model_images_.push_back(cv::imread(image_files[k],0));
         num_channels_ = 1;
 
         // get light sources from files
@@ -124,7 +124,7 @@ bool PhotoStereo::readRGBData()
     for (std::size_t k = 0; k< image_files.size(); k++)
     {
 
-        model_images_.push_back(cv::imread(image_files[k],CV_LOAD_IMAGE_COLOR));
+        model_images_.push_back(cv::imread(image_files[k],1));
         num_channels_ = 3;
 
         // get light sources from files
@@ -406,7 +406,8 @@ void PhotoStereo::saveTriangleMesh(const std::string& mesh_file,const cv::Mat& d
     cv::Mat color;
     cv::normalize(albedo_map, color, 0, 255, cv::NORM_MINMAX);
 
-    std::ofstream file_out { mesh_file };
+    std::ofstream file_out;
+    file_out.open(mesh_file);
     if (!file_out.is_open())
         return;
     int num_vertices = image_width_*image_height_;

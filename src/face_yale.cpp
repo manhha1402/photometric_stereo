@@ -49,7 +49,11 @@ int main(int argc, char** argv)
     p_grads.convertTo(p_grads, CV_8UC1, 255, 0);
     cv::imwrite("face_p_grads"+ss.str()+ ".png",p_grads);
     normal_map.convertTo(normal_map, CV_8UC3, 255, 0);
-    cv::cvtColor(normal_map, normal_map, CV_BGR2RGB); //OpenCV store BGR
+#if (CV_VERSION_MAJOR >= 4)
+    cv::cvtColor(normal_map, normal_map, cv::COLOR_BGR2RGB);
+#else
+    cv::cvtColor(normal_map, normal_map, CV_BGR2RGB);
+#endif
     cv::imwrite("face_normal_map"+ss.str()+".png",normal_map);
     albedo_map.convertTo(albedo_map, CV_8UC1, 255, 0);
     cv::imwrite("face_albedo_map"+ss.str()+".png",albedo_map);
